@@ -6,7 +6,9 @@ export const BottomsectionContext = createContext()
 export const BottomsectionContextProvider = ({ children }) => {
     const [bottomSections, setBottomSections] = useState(readmeSectionsData)
 
-    useEffect(() => { }, [setBottomSections])
+    useEffect(() => {
+        // bottomSections.sort((a, b) => { return a.id < b.id })
+    }, [setBottomSections])
     return (
         <BottomsectionContext.Provider value={{ bottomSections, setBottomSections }}>
             {children}

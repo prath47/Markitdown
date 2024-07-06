@@ -10,7 +10,7 @@ import { BottomsectionContext } from '../contexts/BottomsectionContex';
 import { TopsectionContext } from '../contexts/TopsectionContext';
 
 const EditorPage = () => {
-  const [value, setValue] = useState("'# Hi, *Pluto*!'")
+  const [value, setValue] = useState('# Hi, *Pluto*!')
 
   const { bottomSections } = useContext(BottomsectionContext)
   const { topsections, setTopsections } = useContext(TopsectionContext)
@@ -20,7 +20,6 @@ const EditorPage = () => {
   };
 
   useEffect(() => {
-    console.log(topsections)
   }, [value, setTopsections]);
 
 
