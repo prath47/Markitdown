@@ -1,21 +1,28 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { TopsectionContext } from "./TopsectionContext";
+import { readmeSectionsData } from "../../data";
 
 export const EditorContext = createContext()
 
 export const EditorContextProvider = ({ children }) => {
-    const { } = useContext(TopsectionContext)
-    const [value, setValue] = useState();
+    // const { topsections, setTopsections } = useContext(TopsectionContext)
 
-    const completeText = () => {
+
+    const [value, setValue] = useState('');
+
+    const completeText = (topsections) => {
         var text = '';
-
+        topsections.forEach(e => {
+            text += e.readmeSection;
+        });
+        setValue(text);
     }
-    useEffect(() => {
 
-    }, [])
+    useEffect(() => {
+        // completeText()
+    }, [completeText, setValue])
     return (
-        <EditorContext.Provider>
+        <EditorContext.Provider value={{ value, setValue, completeText }}>
             {children}
         </EditorContext.Provider>
     )

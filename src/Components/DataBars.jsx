@@ -1,10 +1,13 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { BottomsectionContext } from '../contexts/BottomsectionContex'
 import { TopsectionContext } from '../contexts/TopsectionContext'
+import { SelectedSectionContext } from "../contexts/SelectedSection";
 
 const DataBars = ({ section, ind }) => {
+    const ref = useRef()
     const { topsections, setTopsections } = useContext(TopsectionContext)
     const { bottomSections, setBottomSections } = useContext(BottomsectionContext)
+    const { selectedValue, setSelectedValue } = useContext(SelectedSectionContext)
 
     const handleClick = () => {
         var tempBottomSections = bottomSections
@@ -16,11 +19,13 @@ const DataBars = ({ section, ind }) => {
         setTopsections(tempTopSections)
         tempBottomSections = tempBottomSections.filter((e) => e.id !== data.id)
         setBottomSections(tempBottomSections)
+        setSelectedValue(data.readmeSection)
     }
+    
     return (
-        <div onClick={handleClick} className='flex items-center justify-between w-full h-[48px] p-2 border shadow rounded-md mt-3 cursor-pointer'>
-            <div className='flex items-center justify-center'>
-                <div className='ml-2'>{section.title}</div>
+        <div onClick={handleClick} className='flex transition duration-100 ease-in-out items-center justify-between w-full h-[48px] p-2 border shadow rounded-md mt-3 cursor-pointer'>
+            <div className='flex items-center lg:justify-center overflow-x-scroll '>
+                <div className='ml-0 md:ml-2 text-base ld:text-md'>{section.title}</div>
             </div>
         </div>
     )

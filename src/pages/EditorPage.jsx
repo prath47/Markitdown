@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import Navbar from '../Components/Navbar'
 import { IoReload } from "react-icons/io5";
 import { MdOutlineDelete } from "react-icons/md";
@@ -8,26 +8,39 @@ import MonacoEditor from '@monaco-editor/react'
 import MarkdownEditor from '@uiw/react-markdown-editor';
 import { BottomsectionContext } from '../contexts/BottomsectionContex';
 import { TopsectionContext } from '../contexts/TopsectionContext';
+import { EditorContext } from '../contexts/EditorContext';
+import { SelectedSectionContext } from '../contexts/SelectedSection';
 
 const EditorPage = () => {
-  const [value, setValue] = useState('# Hi, *Pluto*!')
-
+  // const [value, setValue] = useState('# Hi, *Pluto*!')
+  const editorRef = useRef(null)
   const { bottomSections } = useContext(BottomsectionContext)
+  const { value, setValue, completeText } = useContext(EditorContext);
   const { topsections, setTopsections } = useContext(TopsectionContext)
+  const { selectedValue, setSelectedValue } = useContext(SelectedSectionContext)
 
   const handleEditorChange = (value) => {
-    setValue(value);
+    // setValue(value);
+
   };
 
+  const handleEditorMount = (editor , monaco)=>{
+    console.log()
+    editor.setValue(selectedValue)
+  }
+
   useEffect(() => {
-  }, [value, setTopsections]);
+    // completeText(topsections)
+    // console.log(editorContext)
+    // console.log(selectedValue)
+  }, [value, selectedValue]);
 
 
   return (
     <div className='w-full h-[90%]'>
       <Navbar />
 
-      <div className='md:grid md:p-8 h-full w-full gap-2 md:grid-cols-10'>
+      <div className='md:grid p-4 lg:p-8 h-full w-full gap-2 md:grid-cols-10'>
         {/* //sections */}
         <div className='hidden md:block w-full md:col-span-2 h-[36rem] 3xl:h-[60rem] p-1 rounded-md'>
           <div className='flex items-center justify-between text-[#57dece]'>
@@ -70,15 +83,16 @@ const EditorPage = () => {
           <div className='flex items-center justify-between'>
             <div className='text-[#57dece]'>Editor</div>
           </div>
-          <div className='h-[94%] 3xl:h-[60rem]'>
+          <div className='h-[94%] 3xl:h-[60rem] border border-1 rounded-lg'>
             <MonacoEditor
+              ref={editorRef}
               width={`100%`}
               language={"markdown"}
-              value={value}
+              value={selectedValue}
               theme="vs-dark"
-              defaultValue="// some comment"
               onChange={handleEditorChange}
               className=""
+              onMount={handleEditorMount}
             />
           </div>
         </div>
@@ -86,7 +100,7 @@ const EditorPage = () => {
           <div className='flex items-center justify-between'>
             <div className='text-[#57dece]'>Preview</div>
           </div>
-          <div className='h-[36rem] 3xl:h-[60rem] p-6 border rounded-lg overflow-y-scroll'>
+          <div className='h-[36rem] 3xl:h-[60rem] p-6 border-2 border-black rounded-lg overflow-y-scroll'>
 
             <MarkdownEditor.Markdown
               // enableEmoji={true}
