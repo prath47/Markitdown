@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { forwardRef, useContext, useEffect, useRef, useState } from 'react'
 import Navbar from '../Components/Navbar'
 import { IoReload } from "react-icons/io5";
 import { MdOutlineDelete } from "react-icons/md";
 import SectionCards from '../Components/SectionCards';
 import DataBars from '../Components/DataBars';
-import MonacoEditor from '@monaco-editor/react'
+import MonacoEditor, { Editor, loader } from '@monaco-editor/react'
 import MarkdownEditor from '@uiw/react-markdown-editor';
 import { BottomsectionContext } from '../contexts/BottomsectionContex';
 import { TopsectionContext } from '../contexts/TopsectionContext';
@@ -13,27 +13,30 @@ import { SelectedSectionContext } from '../contexts/SelectedSection';
 
 const EditorPage = () => {
   // const [value, setValue] = useState('# Hi, *Pluto*!')
-  const editorRef = useRef(null)
+  const editorRef = useRef()
   const { bottomSections } = useContext(BottomsectionContext)
   const { value, setValue, completeText } = useContext(EditorContext);
   const { topsections, setTopsections } = useContext(TopsectionContext)
   const { selectedValue, setSelectedValue } = useContext(SelectedSectionContext)
+  const [markdown, setMarkdown] = useState(selectedValue)
 
   const handleEditorChange = (value) => {
-    // setValue(value);
+    setValue(value);
 
   };
 
-  const handleEditorMount = (editor , monaco)=>{
-    console.log()
-    editor.setValue(selectedValue)
+  const monacoEditorRef = useRef(null)
+  const handleEditorDidMount = (editor) => {
+    monacoEditorRef.current = editor
+  }
+
+  const updateFunction = () => {
+    this.forceUpdate();
   }
 
   useEffect(() => {
-    // completeText(topsections)
-    // console.log(editorContext)
-    // console.log(selectedValue)
-  }, [value, selectedValue]);
+    console.log("Main page updated")
+  }, [value, setTopsections]);
 
 
   return (
@@ -84,15 +87,18 @@ const EditorPage = () => {
             <div className='text-[#57dece]'>Editor</div>
           </div>
           <div className='h-[94%] 3xl:h-[60rem] border border-1 rounded-lg'>
-            <MonacoEditor
-              ref={editorRef}
+            <Editor
               width={`100%`}
+              // ref={editorRef}
               language={"markdown"}
               value={selectedValue}
               theme="vs-dark"
               onChange={handleEditorChange}
               className=""
-              onMount={handleEditorMount}
+              onMount={handleEditorDidMount}
+              keepCurrentModel='false'
+              defaultValue=''
+            // loading={<Loading />}
             />
           </div>
         </div>
@@ -110,6 +116,7 @@ const EditorPage = () => {
               className="max-w-full"
               defaultValue="//some comment"
             />
+
           </div>
         </div>
       </div>

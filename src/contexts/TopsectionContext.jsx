@@ -7,7 +7,7 @@ export const TopsectionContextProvider = ({ children }) => {
     const [topsections, setTopsections] = useState([])
 
     useEffect(() => {
-     }, [setTopsections])
+     }, [topsections])
     return (
         <TopsectionContext.Provider value={{ topsections, setTopsections }}>
             {children}

@@ -7,7 +7,7 @@ export const SelectedSectionContextProvider = ({ children }) => {
 
     useEffect(()=>{
         console.log("called")
-    },[setSelectedValue , selectedValue])
+    },[selectedValue])
     return (
         <SelectedSectionContext.Provider value={{ selectedValue, setSelectedValue }}>
             {children}

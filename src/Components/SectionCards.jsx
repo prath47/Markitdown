@@ -15,18 +15,19 @@ const SectionCards = ({ section, ind }) => {
     const { selectedValue, setSelectedValue } = useContext(SelectedSectionContext)
     const { bottomSections, setBottomSections } = useContext(BottomsectionContext)
 
-    const handleReset = (e) => {
-        e.preventDefault()
+    const handleReset = async () => {
+        // e.preventDefault()
+        // const cnfm = confirm("wanna reset")
+        // if(cnfm == false) return;
 
         const tempData = readmeSectionsData.find((data) => data.id === section.id)
         var tempTopSections = topsections;
-        tempTopSections[ind].readmeSectionsData = tempData.readmeSection
-        setTopsections(tempTopSections)
-        completeText(topsections)
-        // console.log(tempData.readmeSection)
-
-        setSelectedValue(tempData.readmeSection)
-        console.log(selectedValue)
+        await tempTopSections.splice(ind, 1, tempData);
+        console.log(topsections)
+        setTopsections(topsections)
+        // setSelectedValue(tempData.readmeSection)
+        setSelectedValue(tempTopSections.length ? tempTopSections[0].readmeSection : '')
+        console.log(sele)
     }
 
     const handleDelete = async () => {
@@ -56,7 +57,7 @@ const SectionCards = ({ section, ind }) => {
 
     useEffect(() => {
         completeText(topsections)
-    }, [setTopsections , setSelectedValue])
+    }, [setTopsections, setSelectedValue])
     return (
         <button
             onClick={handleClick}
@@ -65,7 +66,7 @@ const SectionCards = ({ section, ind }) => {
                 <img src="../public/drag.svg" alt="drag" className='w-6 md:w-4 h-full cursor-grab' />
                 <div className='ml-2 text-base lg:text-md md:ml-1'>{section.title}</div>
             </div>
-            <div className='flex items-center ml-2 justify-center text-gray-900 text-xl w-10 md:w-10 gap-1'>
+            <div className='flex items-center ml-2 justify-center text-gray-900 text-xl w-10 md:w-10 gap-1 z-10'>
                 <IoReload
                     onClick={handleReset}
                     className='cursor-pointer transition duration-100 ease-in-out hover:scale-[1.5]' />
