@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useRef } from 'react'
-import Navbar from '../Components/Navbar'
 import { IoReload } from "react-icons/io5";
 import { MdOutlineDelete } from "react-icons/md";
 import { TopsectionContext } from '../contexts/TopsectionContext';
@@ -22,8 +21,6 @@ const SectionCards = ({ section, ind }) => {
 
     const sectionRef = useRef()
     const handleReset = () => {
-        // handleClick(e);
-        console.log("Reset Called")
         const temp = [...template];
         const tempData = temp.find((data) => (section.id === data.id))
         var tempTopSections = [...topsections];
@@ -33,7 +30,6 @@ const SectionCards = ({ section, ind }) => {
         setSelectedValue('')
         completeText(tempTopSections)
         setTemplate(JSON.parse(JSON.stringify(temp)))
-        console.log(template)
     }
 
     const handleDelete = async () => {
@@ -59,14 +55,11 @@ const SectionCards = ({ section, ind }) => {
         completeText(topsections)
         setSelectedValue(section.readmeSection)
         setCurrentObject({section , ind})
-        // e.current.focus()
     }
 
     const moverRef = useRef()
     const handleMoverClick = (e) => {
         e.preventDefault();
-        // sectionRef.current.blur()
-        // moverRef.current.blur()
     }
 
     useEffect(() => {

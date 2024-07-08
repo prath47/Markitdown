@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import { readmeSectionsData } from '../../data'
 
 export const TopsectionContext = createContext()
 

@@ -16,7 +16,6 @@ export const EditorContextProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        // completeText()
     }, [completeText, setValue, value])
     return (
         <EditorContext.Provider value={{ value, setValue, completeText }}>

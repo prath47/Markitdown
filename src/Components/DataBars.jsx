@@ -1,13 +1,11 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext } from 'react'
 import { BottomsectionContext } from '../contexts/BottomsectionContex'
 import { TopsectionContext } from '../contexts/TopsectionContext'
 import { SelectedSectionContext } from "../contexts/SelectedSection";
 
 const DataBars = ({ section, ind }) => {
-    const ref = useRef()
     const { topsections, setTopsections } = useContext(TopsectionContext)
     const { bottomSections, setBottomSections } = useContext(BottomsectionContext)
-    const { selectedValue, setSelectedValue } = useContext(SelectedSectionContext)
 
     const handleClick = () => {
         var tempBottomSections = bottomSections
@@ -19,7 +17,6 @@ const DataBars = ({ section, ind }) => {
         setTopsections(tempTopSections)
         tempBottomSections = tempBottomSections.filter((e) => e.id !== data.id)
         setBottomSections(tempBottomSections)
-        // setSelectedValue(data.readmeSection)
     }
     
     return (

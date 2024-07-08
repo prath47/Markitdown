@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import EditorPage from './pages/EditorPage'
 import { useContext, useEffect } from 'react'
 import { SelectedSectionContext } from './contexts/SelectedSection'
+import SimpleEditor from './pages/SimpleEditor'
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/monaco-editor' element={<EditorPage />} />
+      <Route path='/simple-editor' element={<SimpleEditor />} />
     </Routes>
   )
 }
