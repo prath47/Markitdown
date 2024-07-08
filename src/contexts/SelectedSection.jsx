@@ -5,9 +5,9 @@ export const SelectedSectionContext = createContext()
 export const SelectedSectionContextProvider = ({ children }) => {
     const [selectedValue, setSelectedValue] = useState('')
 
-    useEffect(()=>{
-        console.log("called")
-    },[selectedValue])
+    useEffect(() => {
+    }, [selectedValue])
+
     return (
         <SelectedSectionContext.Provider value={{ selectedValue, setSelectedValue }}>
             {children}

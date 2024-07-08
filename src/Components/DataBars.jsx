@@ -19,7 +19,7 @@ const DataBars = ({ section, ind }) => {
         setTopsections(tempTopSections)
         tempBottomSections = tempBottomSections.filter((e) => e.id !== data.id)
         setBottomSections(tempBottomSections)
-        setSelectedValue(data.readmeSection)
+        // setSelectedValue(data.readmeSection)
     }
     
     return (

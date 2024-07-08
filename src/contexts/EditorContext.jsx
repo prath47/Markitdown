@@ -5,12 +5,9 @@ import { readmeSectionsData } from "../../data";
 export const EditorContext = createContext()
 
 export const EditorContextProvider = ({ children }) => {
-    // const { topsections, setTopsections } = useContext(TopsectionContext)
-
-
     const [value, setValue] = useState('');
 
-    const completeText = (topsections) => {
+    const completeText = async (topsections) => {
         var text = '';
         topsections.forEach(e => {
             text += e.readmeSection;
@@ -20,7 +17,7 @@ export const EditorContextProvider = ({ children }) => {
 
     useEffect(() => {
         // completeText()
-    }, [completeText, setValue])
+    }, [completeText, setValue, value])
     return (
         <EditorContext.Provider value={{ value, setValue, completeText }}>
             {children}

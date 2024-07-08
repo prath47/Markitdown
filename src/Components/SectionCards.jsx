@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import Navbar from '../Components/Navbar'
 import { IoReload } from "react-icons/io5";
 import { MdOutlineDelete } from "react-icons/md";
@@ -7,6 +7,8 @@ import { BottomsectionContext } from '../contexts/BottomsectionContex';
 import { readmeSectionsData } from '../../data';
 import { EditorContext } from '../contexts/EditorContext';
 import { SelectedSectionContext } from '../contexts/SelectedSection';
+import { CurrentObjectContext } from '../contexts/CurrentObjectContext';
+import { TemplateContext } from '../contexts/TemplateContext';
 
 
 const SectionCards = ({ section, ind }) => {
@@ -14,20 +16,24 @@ const SectionCards = ({ section, ind }) => {
     const { topsections, setTopsections } = useContext(TopsectionContext)
     const { selectedValue, setSelectedValue } = useContext(SelectedSectionContext)
     const { bottomSections, setBottomSections } = useContext(BottomsectionContext)
+    const { currentObject, setCurrentObject } = useContext(CurrentObjectContext)
+    const { template, setTemplate } = useContext(TemplateContext)
 
-    const handleReset = async () => {
-        // e.preventDefault()
-        // const cnfm = confirm("wanna reset")
-        // if(cnfm == false) return;
 
-        const tempData = readmeSectionsData.find((data) => data.id === section.id)
-        var tempTopSections = topsections;
-        await tempTopSections.splice(ind, 1, tempData);
-        console.log(topsections)
-        setTopsections(topsections)
-        // setSelectedValue(tempData.readmeSection)
-        setSelectedValue(tempTopSections.length ? tempTopSections[0].readmeSection : '')
-        console.log(sele)
+    const sectionRef = useRef()
+    const handleReset = () => {
+        // handleClick(e);
+        console.log("Reset Called")
+        const temp = [...template];
+        const tempData = temp.find((data) => (section.id === data.id))
+        var tempTopSections = [...topsections];
+        tempTopSections.splice(ind, 1, tempData);
+        setTopsections(tempTopSections)
+
+        setSelectedValue('')
+        completeText(tempTopSections)
+        setTemplate(JSON.parse(JSON.stringify(temp)))
+        console.log(template)
     }
 
     const handleDelete = async () => {
@@ -45,25 +51,37 @@ const SectionCards = ({ section, ind }) => {
         tempTopSections = tempTopSections.filter((e) => e.id !== data.id)
         setTopsections(tempTopSections)
         completeText(tempTopSections)
-        setSelectedValue(tempTopSections.length ? tempTopSections[0].readmeSection : '')
+        setSelectedValue('')
     }
 
     const handleClick = (e) => {
         e.preventDefault()
         completeText(topsections)
         setSelectedValue(section.readmeSection)
+        setCurrentObject({section , ind})
+        // e.current.focus()
     }
 
+    const moverRef = useRef()
+    const handleMoverClick = (e) => {
+        e.preventDefault();
+        // sectionRef.current.blur()
+        // moverRef.current.blur()
+    }
 
     useEffect(() => {
         completeText(topsections)
     }, [setTopsections, setSelectedValue])
     return (
         <button
+            ref={sectionRef}
             onClick={handleClick}
-            className='flex items-center justify-between w-full h-[48px] p-2 gap-1 border shadow rounded-md mt-2 active:bg-gray-300 focus:outline-none focus:ring transition duration-100 ease-in-out focus:ring-[#5ad4e1] focus:scale-[1.01] overflow-x-scroll'>
+            className='flex items-center justify-between w-full h-[48px] p-2 gap-1 border shadow rounded-md mt-2 active:bg-gray-300 focus:outline-none focus:ring transition duration-100 ease-in-out focus:ring-[#5ad4e1] focus:scale-[1.01] overflow-x-scroll z-10'>
             <div className='flex items-center justify-center'>
-                <img src="../public/drag.svg" alt="drag" className='w-6 md:w-4 h-full cursor-grab' />
+                <img
+                    ref={moverRef}
+                    onClick={handleMoverClick}
+                    src="./drag.svg" alt="drag" className='w-6 md:w-4 h-full cursor-grab' />
                 <div className='ml-2 text-base lg:text-md md:ml-1'>{section.title}</div>
             </div>
             <div className='flex items-center ml-2 justify-center text-gray-900 text-xl w-10 md:w-10 gap-1 z-10'>
