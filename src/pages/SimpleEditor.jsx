@@ -10,7 +10,7 @@ const SimpleEditor = () => {
 return (
     <div className='w-full h-full'>
         <Navbar />
-        <div className='w-full mx-auto my-0 py-[2.3rem] px-[3rem] flex justify-center'>
+        <div className='w-full mx-auto my-0 py-[2.3rem] px-[3rem] min-h-[90%] flex justify-center'>
             <MarkdownEditor
                 // enableEmoji={true}
                 source={value}
