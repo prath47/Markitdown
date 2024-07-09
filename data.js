@@ -1,7 +1,7 @@
 export const readmeSectionsData = [
     {
-        id:1,
-        title:'ACKNOWLEDGEMENT',
+        id: 1,
+        title: 'ACKNOWLEDGEMENT',
         readmeSection: "\r\n## Acknowledgements\r\n\r\n - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)\r\n - [Awesome README](https://github.com/matiassingers/awesome-readme)\r\n - [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)\r\n\r\n"
     },
     {
@@ -32,12 +32,12 @@ export const readmeSectionsData = [
     {
         id: 7,
         title: 'CONTRIBUTING',
-        readmeSection: "\r\n## Contributing\r\n\r\nContributions are always welcome!\r\n\r\nSee `contributing.md` for ways to get started.\r\n\r\nPlease adhere to this project's `code of conduct`.\r\n\r\n"    
+        readmeSection: "\r\n## Contributing\r\n\r\nContributions are always welcome!\r\n\r\nSee `contributing.md` for ways to get started.\r\n\r\nPlease adhere to this project's `code of conduct`.\r\n\r\n"
     },
     {
         id: 8,
         title: 'DEMO',
-        readmeSection: "\r\n## Demo\r\n\r\nInsert gif or link to demo\r\n\r\n"   
+        readmeSection: "\r\n## Demo\r\n\r\nInsert gif or link to demo\r\n\r\n"
     },
     {
         id: 9,
@@ -169,6 +169,4 @@ export const readmeSectionsData = [
         title: 'USED BY',
         readmeSection: "\r\n## Used By\r\n\r\nThis project is used by the following companies:\r\n\r\n- Company 1\r\n- Company 2\r\n\r\n"
     },
-
-
 ]
