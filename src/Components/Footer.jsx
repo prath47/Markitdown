@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
-        <footer class="bg-[#001f4a]">
-            <div class="mx-auto max-w-screen-l px-4 py-2 sm:px-6 lg:px-8">
-                <div class="sm:flex sm:items-center sm:justify-between">
-                    <div class="flex justify-center text-white sm:justify-start">
+        <footer className="bg-[#001f4a]">
+            <div className="mx-auto max-w-screen-l px-4 py-2 sm:px-6 lg:px-8">
+                <div className="sm:flex sm:items-center sm:justify-between">
+                    <div className="flex justify-center text-white sm:justify-start">
                         <div className='flex justify-center items-center gap-2'>
                             <img
                                 className='w-8'
@@ -21,7 +21,7 @@ const Footer = () => {
                                 <FaGithub />
                             </Link>
                         </div>
-                        <p class="mt-4 text-center text-sm text-white lg:mt-0 lg:text-right">
+                        <p className="mt-4 text-center text-sm text-white lg:mt-0 lg:text-right">
                             Made with lot of Lines of code by Prathmesh
                         </p>
                     </div>
