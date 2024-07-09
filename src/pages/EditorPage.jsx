@@ -16,6 +16,7 @@ import { SelectedSectionContext } from "../contexts/SelectedSection";
 import { CurrentObjectContext } from "../contexts/CurrentObjectContext";
 import { readmeSectionsData } from '../../data'
 import { TemplateContext } from "../contexts/TemplateContext";
+import { FaBars } from "react-icons/fa";
 
 
 const EditorPage = () => {
@@ -27,6 +28,7 @@ const EditorPage = () => {
   const { template, setTemplate } = useContext(TemplateContext)
 
   const handleEditorChange = async (val) => {
+    console.log(val)
     const tempVal = val.length ? val : '';
     const section = { ...currentObject };
 
@@ -75,11 +77,71 @@ const EditorPage = () => {
   useEffect(() => {
   }, [value, setTopsections, handleEditorChange]);
 
+  const [Toggle, setToggle] = useState(false);
+
   return (
     <div className="w-full h-[90%] dark:text-white">
       <Navbar />
+      
+      
+      <div className="block md:hidden px-6 mt-2">
+        <FaBars 
+        onClick={() => setToggle(!Toggle)}
+        className="md:hidden text-[#57dece] text-2xl" />
+        {Toggle && 
+        <div className="block md:hidden absolute bg-gray-200 mt-2 p-1 rounded-md">
+          <div className="flex items-center justify-between text-[#57dece]">
+            <div className="">Section</div>
+            <div className="hidden items-center justify-between gap-1">
+              <div>
+                <IoReload />
+              </div>
+              <div>Reset</div>
+            </div>
+          </div>
+          {/* //what is added till now */}
+          <div className="p-1 max-h-full overflow-y-scroll">
+            <div className="text-[0.8rem] min-h-full mb-2">
+              Click on a section below to edit the contents
+            </div>
+            <div className="text-[0.8rem] min-h-full">
+              Double Click on the reset button to reset the section
+            </div>
 
-      <div className="md:grid p-4 lg:p-8 h-full w-full gap-2 md:grid-cols-10">
+            {/* card */}
+            <div>
+              {topsections?.map((section, ind) => (
+                <SectionCards key={ind} section={section} ind={ind} />
+              ))}
+            </div>
+
+            <div className="mt-10">
+              {/* Click on a section below to add it to your readme */}
+              <div className="text-[0.78rem]">
+                Click on a section below to add it to your readme
+              </div>
+              <div className="flex items-center justify-between w-full h-[48px] p-2 border shadow rounded-md mt-3">
+                <input
+                  onClick={onClickSearch}
+                  onChange={(e) => handleSearch(e)}
+                  type="text" className="w-full outline-none" placeholder="Search..." />
+              </div>
+              <div className="hidden items-center justify-center w-full h-[48px] p-2 border shadow rounded-md mt-3">
+                <button className="flex items-center justify-center">
+                  + Custom Section
+                </button>
+              </div>
+              {bottomSections.map((section, ind) => (
+                <DataBars key={ind} section={section} ind={ind} />
+              ))}
+            </div>
+          </div>
+        </div>}
+      </div>
+
+
+
+      <div className="md:grid p-2 lg:p-4 h-[99%] w-full gap-2 md:grid-cols-10">
         {/* //sections */}
         <div className="hidden md:block w-full md:col-span-2 h-[36rem] 3xl:h-[60rem] p-1 rounded-md">
           <div className="flex items-center justify-between text-[#57dece]">
@@ -130,11 +192,11 @@ const EditorPage = () => {
           </div>
         </div>
 
-        <div className="w-full block md:col-span-4 md:p-1 p-8 h-full">
+        <div className="w-full block md:col-span-4 p-8 md:p-1 h-full">
           <div className="flex items-center justify-between">
             <div className="text-[#57dece] m-2">Editor</div>
           </div>
-          <div className="h-[93%] 3xl:h-[60rem] border border-1 rounded-lg">
+          <div className="h-[93%] 3xl:h-full border border-1 rounded-lg">
             {selectedValue.length ? <Editor
               width={`100%`}
               language={"markdown"}
@@ -150,7 +212,7 @@ const EditorPage = () => {
           <div className="flex items-center justify-between">
             <div className="text-[#57dece] m-2">Preview</div>
           </div>
-          <div className="h-[36rem] 3xl:h-[60rem] p-6 border-2 rounded-lg overflow-y-scroll">
+          <div className="h-[36rem] 3xl:h-[60rem] p-6 border-[1px] border-gray-800 rounded-lg overflow-y-scroll">
 
             <MarkdownEditor.Markdown
               // enableEmoji={true}

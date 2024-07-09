@@ -69,7 +69,7 @@ const SectionCards = ({ section, ind }) => {
         <button
             ref={sectionRef}
             onClick={handleClick}
-            className='flex items-center justify-between w-full h-[48px] p-2 gap-1 border shadow rounded-md mt-2 active:bg-gray-300 focus:outline-none focus:ring transition duration-100 ease-in-out focus:ring-[#5ad4e1] focus:scale-[1.01] overflow-x-scroll z-10'>
+            className='flex items-center justify-between w-full h-[48px] p-2 gap-1 border shadow-sm rounded-md mt-2 active:bg-gray-300 focus:outline-none focus:ring transition duration-100 ease-in-out focus:ring-[#5ad4e1] focus:scale-[1.01] overflow-x-scroll z-10'>
             <div className='flex items-center justify-center'>
                 <img
                     ref={moverRef}
